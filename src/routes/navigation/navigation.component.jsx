@@ -5,9 +5,15 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import "./navigation.styles.scss";
 import { UserContext } from "../../context/user.content";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
 
   return (
     <Fragment>
@@ -20,7 +26,9 @@ const Navigation = () => {
             SHOP
           </Link>
           {currentUser ? (
-            <span className="nav-link">SIGN OUT</span>
+            <span className="nav-link" onClick={signOutHandler}>
+              SIGN OUT
+            </span>
           ) : (
             <Link className="nav-link" to="/auth">
               SIGN IN
