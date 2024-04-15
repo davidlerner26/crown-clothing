@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import { createContext, useReducer } from "react";
 import { createAction } from "../utils/reducer.util";
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -39,11 +39,11 @@ const clearCartItem = (cartItems, cartItemToClear) => {
 
 export const CartContext = createContext({
   isCartOpen: false,
-  setIsCartOpen: () => {},
+  setIsCartOpen: () => { },
   cartItems: [],
-  addItemToCart: () => {},
-  removeItemFromCart: () => {},
-  clearItemFromCart: () => {},
+  addItemToCart: () => { },
+  removeItemFromCart: () => { },
+  clearItemFromCart: () => { },
   cartCount: 0,
   cartTotal: 0,
 });
