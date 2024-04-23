@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
@@ -49,12 +49,12 @@ const SignInForm = () => {
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      <form onSubmit={(e) => handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormInput
           label='Email'
           type='email'
           required
-          onChange={(e) => handleChange}
+          onChange={handleChange}
           name='email'
           value={email}
         />
@@ -63,7 +63,7 @@ const SignInForm = () => {
           label='Password'
           type='password'
           required
-          onChange={(e) => handleChange}
+          onChange={handleChange}
           name='password'
           value={password}
         />
