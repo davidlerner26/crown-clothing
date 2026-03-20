@@ -1,4 +1,4 @@
-import { call } from 'typed-redux-saga/macro';
+import { call } from 'typed-redux-saga';
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 import {
@@ -32,7 +32,7 @@ describe('category sagas', () => {
       .next()
       .takeLatest(
         CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START,
-        fetchCategoriesAsync
+        fetchCategoriesAsync,
       )
       .next()
       .isDone();

@@ -1,4 +1,4 @@
-import { call } from 'typed-redux-saga/macro';
+import { call } from 'typed-redux-saga';
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import { throwError } from 'redux-saga-test-plan/providers';
 
@@ -163,7 +163,9 @@ describe('user sagas', () => {
         ],
       ])
       .put(
-        signUpSuccess(mockUserCredential.user, { displayName: mockDisplayName })
+        signUpSuccess(mockUserCredential.user, {
+          displayName: mockDisplayName,
+        }),
       )
       .run();
   });
@@ -268,7 +270,7 @@ describe('user sagas', () => {
     return expectSaga(
       getSnapshotFromUserAuth,
       mockUserAuth,
-      mockAdditionalDetails
+      mockAdditionalDetails,
     )
       .provide([
         [
@@ -277,7 +279,7 @@ describe('user sagas', () => {
         ],
       ])
       .put(
-        signInSuccess({ id: mockUserSnapshot.id, ...mockUserSnapshot.data() })
+        signInSuccess({ id: mockUserSnapshot.id, ...mockUserSnapshot.data() }),
       )
       .run();
   });
@@ -290,7 +292,7 @@ describe('user sagas', () => {
     return expectSaga(
       getSnapshotFromUserAuth,
       mockUserAuth,
-      mockAdditionalDetails
+      mockAdditionalDetails,
     )
       .provide([
         [

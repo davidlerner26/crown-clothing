@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from 'typed-redux-saga/macro';
+import { takeLatest, put, all, call } from 'typed-redux-saga';
 import { User } from 'firebase/auth';
 
 import { USER_ACTION_TYPES } from './user.types';
@@ -27,18 +27,18 @@ import {
 
 export function* getSnapshotFromUserAuth(
   userAuth: User,
-  additionalDetails?: AdditionalInformation
+  additionalDetails?: AdditionalInformation,
 ) {
   try {
     const userSnapshot = yield* call(
       createUserDocumentFromAuth,
       userAuth,
-      additionalDetails
+      additionalDetails,
     );
 
     if (userSnapshot) {
       yield* put(
-        signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+        signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }),
       );
     }
   } catch (error) {
@@ -62,7 +62,7 @@ export function* signInWithEmail({
     const userCredential = yield* call(
       signInAuthUserWithEmailAndPassword,
       email,
-      password
+      password,
     );
 
     if (userCredential) {
@@ -91,7 +91,7 @@ export function* signUp({
     const userCredential = yield* call(
       createAuthUserWithEmailAndPassword,
       email,
-      password
+      password,
     );
 
     if (userCredential) {
