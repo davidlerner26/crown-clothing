@@ -38,12 +38,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleWares: Middleware[] = [sagaMiddleware];
 
-if (process.env.NODE_ENV !== 'production') {
+if (import.meta.env.VITE_NODE_ENV !== 'production') {
   middleWares.push(logger as Middleware);
 }
 
 const composeEnhancer: typeof compose =
-  (process.env.NODE_ENV !== 'production' &&
+  (import.meta.env.VITE_NODE_ENV !== 'production' &&
     typeof window !== 'undefined' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
