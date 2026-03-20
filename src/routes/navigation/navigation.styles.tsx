@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const NavigationContainer = styled.div`
@@ -38,7 +38,18 @@ export const NavLinks = styled.div`
   }
 `;
 
-export const NavLink = styled(Link)`
+const navLinkStyles = css`
   padding: 10px 15px;
   cursor: pointer;
+`;
+
+export const NavLink = styled(Link)`
+  ${navLinkStyles}
+`;
+
+export const NavLinkButton = styled.button`
+  ${navLinkStyles}
+  background: none;
+  border: none;
+  font: inherit;
 `;

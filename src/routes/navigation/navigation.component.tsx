@@ -16,6 +16,7 @@ import {
   NavLinks,
   NavLink,
   LogoContainer,
+  NavLinkButton,
 } from './navigation.styles';
 
 const Navigation = () => {
@@ -28,18 +29,18 @@ const Navigation = () => {
   return (
     <Fragment>
       <NavigationContainer>
-        <LogoContainer to='/'>
-          <CrwnLogo className='logo' />
+        <LogoContainer to="/">
+          <CrwnLogo className="logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to='/shop'>SHOP</NavLink>
+          <NavLink to="/shop">SHOP</NavLink>
 
           {currentUser ? (
-            <NavLink as='span' onClick={signOutUser}>
+            <NavLinkButton type="button" onClick={signOutUser}>
               SIGN OUT
-            </NavLink>
+            </NavLinkButton>
           ) : (
-            <NavLink to='/auth'>SIGN IN</NavLink>
+            <NavLink to="/auth">SIGN IN</NavLink>
           )}
           <CartIcon />
         </NavLinks>

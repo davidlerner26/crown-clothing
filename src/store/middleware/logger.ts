@@ -1,18 +1,28 @@
-import { Middleware } from 'redux';
+import { Middleware, isAction, UnknownAction } from 'redux';
 
 import { RootState } from '../store';
 
+const hasPayload = (
+  action: UnknownAction,
+): action is UnknownAction & { payload: unknown } => 'payload' in action;
+
 export const loggerMiddleware: Middleware<{}, RootState> =
   (store) => (next) => (action) => {
-    if (!action.type) {
+    if (!isAction(action)) {
       return next(action);
     }
 
     console.log('type: ', action.type);
-    console.log('payload: ', action.payload);
+
+    if (hasPayload(action)) {
+      console.log('payload: ', action.payload);
+    }
+
     console.log('currentState: ', store.getState());
 
-    next(action);
+    const result = next(action);
 
     console.log('next state: ', store.getState());
+
+    return result;
   };
