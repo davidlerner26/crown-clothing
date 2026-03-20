@@ -7,9 +7,9 @@ const manifestForPlugin = {
   registerType: 'prompt',
   includeAssests: ['favicon.ico', 'apple-touc-icon.png', 'masked-icon.svg'],
   manifest: {
-    name: 'Find-your-beauty',
-    short_name: 'find-your-beauty',
-    description: 'Find beauty saloons near you',
+    name: 'Crown-clothing',
+    short_name: 'crown-clothing',
+    description: 'Shop your favorite clothes without leaving your house.',
     icons: [
       {
         src: 'favicon.ico',
