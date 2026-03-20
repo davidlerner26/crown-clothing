@@ -26,15 +26,15 @@ import {
 import { Category } from '../../store/categories/category.types';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDRsnzMsCm1nYDNPfbOTy_ZV2fiNVyJ2JQ",
-  authDomain: "crown-db-17e0c.firebaseapp.com",
-  projectId: "crown-db-17e0c",
-  storageBucket: "crown-db-17e0c.appspot.com",
-  messagingSenderId: "994451402722",
-  appId: "1:994451402722:web:44a765ea9dd67b1e80d3bb",
+  apiKey: 'AIzaSyDRsnzMsCm1nYDNPfbOTy_ZV2fiNVyJ2JQ',
+  authDomain: 'crown-db-17e0c.firebaseapp.com',
+  projectId: 'crown-db-17e0c',
+  storageBucket: 'crown-db-17e0c.appspot.com',
+  messagingSenderId: '994451402722',
+  appId: '1:994451402722:web:44a765ea9dd67b1e80d3bb',
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -56,7 +56,7 @@ export type ObjectToAdd = {
 
 export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
   collectionKey: string,
-  objectsToAdd: T[]
+  objectsToAdd: T[],
 ): Promise<void> => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -76,7 +76,7 @@ export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
 
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map(
-    (docSnapshot) => docSnapshot.data() as Category
+    (docSnapshot) => docSnapshot.data() as Category,
   );
 };
 
@@ -92,7 +92,7 @@ export type UserData = {
 
 export const createUserDocumentFromAuth = async (
   userAuth: User,
-  additionalInformation = {} as AdditionalInformation
+  additionalInformation = {} as AdditionalInformation,
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
 
@@ -121,7 +121,7 @@ export const createUserDocumentFromAuth = async (
 
 export const createAuthUserWithEmailAndPassword = async (
   email: string,
-  password: string
+  password: string,
 ) => {
   if (!email || !password) return;
 
@@ -130,7 +130,7 @@ export const createAuthUserWithEmailAndPassword = async (
 
 export const signInAuthUserWithEmailAndPassword = async (
   email: string,
-  password: string
+  password: string,
 ) => {
   if (!email || !password) return;
 
@@ -150,7 +150,7 @@ export const getCurrentUser = (): Promise<User | null> => {
         unsubscribe();
         resolve(userAuth);
       },
-      reject
+      reject,
     );
   });
 };
