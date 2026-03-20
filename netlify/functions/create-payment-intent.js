@@ -1,5 +1,4 @@
-require('dotenv').config();
-const stripe = require('stripe')(import.meta.env.VITE_STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
   try {
@@ -16,11 +15,13 @@ exports.handler = async (event) => {
       body: JSON.stringify({ paymentIntent }),
     };
   } catch (error) {
-    console.log({ error });
+    console.error(error);
 
     return {
-      status: 400,
-      body: JSON.stringify({ error }),
+      statusCode: 400,
+      body: JSON.stringify({
+        error: error instanceof Error ? error.message : 'Unknown error',
+      }),
     };
   }
 };
