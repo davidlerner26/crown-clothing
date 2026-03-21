@@ -1,11 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import Button, { BUTTON_TYPE_CLASSES } from '../button.component';
+import Button from '../button.component';
+import { BUTTON_TYPE_CLASSES } from '../button-type-classes';
 
 describe('button tests', () => {
   test('should render base button when nothing is passed', () => {
     render(<Button>Test</Button>);
 
-    expect(screen.getByRole('button')).toHaveStyle('background-color: black');
+    expect(screen.getByRole('button')).toHaveStyle(
+      'background-color: rgb(0, 0, 0)',
+    );
     expect(screen.getByRole('button')).not.toBeDisabled();
   });
 
@@ -24,6 +27,8 @@ describe('button tests', () => {
   test('should render inverted button when passed inverted type', () => {
     render(<Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Test</Button>);
 
-    expect(screen.getByRole('button')).toHaveStyle('background-color: white');
+    expect(screen.getByRole('button')).toHaveStyle(
+      'background-color: rgb(255, 255, 255)',
+    );
   });
 });

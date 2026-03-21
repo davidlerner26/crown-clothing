@@ -18,6 +18,15 @@ const mockCategoriesArray = [
   { id: 2, name: 'Category 2' },
 ];
 
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    json: async () => ({
+      categories: [],
+    }),
+  }),
+);
+
 describe('category sagas', () => {
   test('categoriesSaga', () => {
     testSaga(categoriesSaga)
