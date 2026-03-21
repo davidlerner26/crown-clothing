@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import { VitePWA } from 'vite-plugin-pwa';
+import { VitePWA, type VitePWAOptions } from 'vite-plugin-pwa';
 
-const manifestForPlugin = {
+const manifestForPlugin: Partial<VitePWAOptions> = {
   registerType: 'prompt',
-  includeAssests: ['favicon.ico', 'apple-touc-icon.png', 'masked-icon.svg'],
+  includeAssets: ['favicon.ico', 'apple-touc-icon.png', 'masked-icon.svg'],
   manifest: {
     name: 'Crown-clothing',
     short_name: 'crown-clothing',

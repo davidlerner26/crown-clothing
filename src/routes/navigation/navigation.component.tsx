@@ -9,7 +9,7 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { signOutStart } from '../../store/user/user.action';
 
-import CrownLogo from '../../assets/crown.svg?react';
+import CrownLogo from '../../assets/crown.svg';
 
 import {
   NavigationContainer,
@@ -30,7 +30,7 @@ const Navigation = () => {
     <Fragment>
       <NavigationContainer>
         <LogoContainer to="/">
-          <CrownLogo className="logo" />
+          <CrownLogo />
         </LogoContainer>
         <NavLinks>
           <NavLink to="/shop">SHOP</NavLink>
