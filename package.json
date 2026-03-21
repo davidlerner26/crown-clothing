@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "test": "jest",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -40,6 +41,8 @@
     "typed-redux-saga": "1.4.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-react": "^7.28.5",
     "@eslint/js": "^9.39.4",
     "@types/enzyme": "3.10.11",
     "@types/jest": "^30.0.0",
@@ -48,11 +51,13 @@
     "@types/react-dom": "^19.2.3",
     "@types/react-test-renderer": "^19.1.0",
     "@vitejs/plugin-react": "^5.2.0",
+    "babel-jest": "^30.3.0",
     "babel-plugin-macros": "3.1.0",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "jest": "^30.3.0",
     "jest-extended": "2.0.0",
     "react-test-renderer": "^19.2.4",
     "typescript": "~5.9.3",
