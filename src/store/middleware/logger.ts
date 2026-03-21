@@ -1,6 +1,6 @@
-import { Middleware, isAction, UnknownAction } from 'redux';
+import { type Middleware, isAction, type UnknownAction } from 'redux';
 
-import { RootState } from '../store';
+import type { RootState } from '../store';
 
 const hasPayload = (
   action: UnknownAction,

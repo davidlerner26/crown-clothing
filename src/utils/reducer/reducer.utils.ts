@@ -1,23 +1,23 @@
-import { AnyAction } from 'redux';
+import type { UnknownAction } from 'redux';
 
-type Matchable<AC extends () => AnyAction> = AC & {
+type Matchable<AC extends () => UnknownAction> = AC & {
   type: ReturnType<AC>['type'];
-  match(action: AnyAction): action is ReturnType<AC>;
+  match(action: UnknownAction): action is ReturnType<AC>;
 };
 
-export function withMatcher<AC extends () => AnyAction & { type: string }>(
-  actionCreator: AC
+export function withMatcher<AC extends () => UnknownAction & { type: string }>(
+  actionCreator: AC,
 ): Matchable<AC>;
 
 export function withMatcher<
-  AC extends (...args: any[]) => AnyAction & { type: string }
+  AC extends (...args: any[]) => UnknownAction & { type: string },
 >(actionCreator: AC): Matchable<AC>;
 
 export function withMatcher(actionCreator: Function) {
   const type = actionCreator().type;
   return Object.assign(actionCreator, {
     type,
-    match(action: AnyAction) {
+    match(action: UnknownAction) {
       return action.type === type;
     },
   });
@@ -34,12 +34,12 @@ export type Action<T> = {
 
 export function createAction<T extends string, P>(
   type: T,
-  payload: P
+  payload: P,
 ): ActionWithPayload<T, P>;
 
 export function createAction<T extends string>(
   type: T,
-  payload: void
+  payload: void,
 ): Action<T>;
 
 export function createAction<T extends string, P>(type: T, payload: P) {

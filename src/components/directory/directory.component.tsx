@@ -1,4 +1,4 @@
-import { Key } from 'react';
+import type { Key } from 'react';
 
 import DirectoryItem from '../directory-item/directory-item.component';
 

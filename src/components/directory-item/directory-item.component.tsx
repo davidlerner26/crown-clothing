@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { DirectoryCategory } from '../directory/directory.component';
+import type { DirectoryCategory } from '../directory/directory.component';
 
 import {
   BackgroundImage,

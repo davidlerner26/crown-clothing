@@ -8,9 +8,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  NextOrObserver,
-  User,
 } from 'firebase/auth';
+import type { NextOrObserver, User } from 'firebase/auth';
 import {
   getFirestore,
   doc,
@@ -23,7 +22,7 @@ import {
   QueryDocumentSnapshot,
 } from 'firebase/firestore';
 
-import { Category } from '../../store/categories/category.types';
+import type { Category } from '../../store/categories/category.types';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDRsnzMsCm1nYDNPfbOTy_ZV2fiNVyJ2JQ',

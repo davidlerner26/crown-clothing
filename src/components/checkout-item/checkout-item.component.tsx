@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { type FC, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectCartItems } from '../../store/cart/cart.selector';
@@ -18,7 +18,7 @@ import {
   RemoveButton,
 } from './checkout-item.styles';
 
-import { CartItem } from '../../store/cart/cart.types';
+import type { CartItem } from '../../store/cart/cart.types';
 
 type CheckoutItemProps = {
   cartItem: CartItem;

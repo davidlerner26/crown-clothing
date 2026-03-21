@@ -2,10 +2,14 @@ import {
   compose,
   createStore,
   applyMiddleware,
-  Middleware,
-  StoreEnhancer,
+  type Middleware,
+  type StoreEnhancer,
 } from 'redux';
-import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  type PersistConfig,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
