@@ -8,23 +8,6 @@ import {
   signOutUser,
 } from '../firebase/firebase.utils';
 
-jest.mock('firebase/auth', () => {
-  return {
-    getAuth: jest.fn(),
-    GoogleAuthProvider: jest.fn().mockImplementation(() => {
-      return {
-        setCustomParameters: jest.fn(),
-      };
-    }),
-    signInWithPopup: jest.fn(),
-    signInWithRedirect: jest.fn(),
-    signInWithEmailAndPassword: jest.fn(),
-    createUserWithEmailAndPassword: jest.fn(),
-    onAuthStateChanged: jest.fn(),
-    signOut: jest.fn(),
-  };
-});
-
 describe('firebase utils', () => {
   test("signInWithGooglePopup to call firestoreAuth's signInWithPopup", () => {
     signInWithGooglePopup();
@@ -44,7 +27,7 @@ describe('firebase utils', () => {
     expect(firestoreAuth.signInWithEmailAndPassword).toHaveBeenCalledWith(
       undefined,
       testEmail,
-      testPassword
+      testPassword,
     );
   });
 
@@ -56,7 +39,7 @@ describe('firebase utils', () => {
     expect(firestoreAuth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
       undefined,
       testEmail,
-      testPassword
+      testPassword,
     );
   });
 

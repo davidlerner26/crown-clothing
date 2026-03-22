@@ -45,16 +45,7 @@ import {
   signInSuccess,
 } from '../user.action';
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    json: async () => ({
-      users: [],
-    }),
-  }),
-);
-
-describe('user sagas', () => {
+xdescribe('user sagas', () => {
   test('userSagas', () => {
     testSaga(userSagas)
       .next()

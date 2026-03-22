@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import type { ReactNode } from 'react';
 
 export function renderWithProviders(
-  ui,
+  ui: ReactNode,
   {
     preloadedState = {},
     // Automatically create a store instance if no store was passed in

@@ -5,6 +5,11 @@ import { renderWithProviders } from '../../../utils/test-utils';
 
 import { signOutStart } from '../../../store/user/user.action';
 
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn(),
+}));
+
 describe('Navigation tests', () => {
   test('It should render a Sign In link if there is no currentUser', () => {
     renderWithProviders(<Navigation />, {
@@ -70,7 +75,7 @@ describe('Navigation tests', () => {
 
   test('It should dispatch signOutStart action when clicking on the Sign Out link', async () => {
     const mockDispatch = jest.fn();
-    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+    reactRedux.useDispatch.mockReturnValue(mockDispatch);
 
     renderWithProviders(<Navigation />, {
       preloadedState: {
