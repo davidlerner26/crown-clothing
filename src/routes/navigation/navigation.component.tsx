@@ -30,7 +30,7 @@ const Navigation = () => {
     <Fragment>
       <NavigationContainer>
         <LogoContainer to="/">
-          <CrownLogo />
+          <img src={CrownLogo} alt="Crown logo" />
         </LogoContainer>
         <NavLinks>
           <NavLink to="/shop">SHOP</NavLink>
