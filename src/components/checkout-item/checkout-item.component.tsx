@@ -19,6 +19,7 @@ import {
 } from './checkout-item.styles';
 
 import type { CartItem } from '../../store/cart/cart.types';
+import { CurrencyFormatter } from '../currency-formatter/currency-formatter.component';
 
 type CheckoutItemProps = {
   cartItem: CartItem;
@@ -46,7 +47,9 @@ const CheckoutItem: FC<CheckoutItemProps> = memo(({ cartItem }) => {
         <Value>{quantity}</Value>
         <Arrow onClick={addItemHandler}>&#10095;</Arrow>
       </Quantity>
-      <BaseSpan> {price}</BaseSpan>
+      <BaseSpan>
+        <CurrencyFormatter price={price} currencyCode="USD" locale="en-US" />
+      </BaseSpan>
       <RemoveButton onClick={clearItemHandler}>&#10005;</RemoveButton>
     </CheckoutItemContainer>
   );

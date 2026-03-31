@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CurrencyFormatter } from '../currency-formatter/currency-formatter.component';
 
 export const ProductCartContainer = styled.div`
   width: 100%;
@@ -68,6 +69,6 @@ export const Name = styled.span`
   margin-bottom: 15px;
 `;
 
-export const Price = styled.span`
+export const Price = styled(CurrencyFormatter)`
   width: 10%;
 `;
