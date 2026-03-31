@@ -11,7 +11,6 @@ type CartItemProps = {
 
 const CartItem: FC<CartItemProps> = memo(({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
-  console.log(price);
   return (
     <CartItemContainer>
       <img src={imageUrl} alt={`${name}`} />

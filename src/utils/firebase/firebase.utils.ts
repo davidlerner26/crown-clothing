@@ -66,7 +66,6 @@ export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
   });
 
   await batch.commit();
-  console.log('done');
 };
 
 export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
@@ -111,7 +110,7 @@ export const createUserDocumentFromAuth = async (
         ...additionalInformation,
       });
     } catch (error) {
-      console.log('error creating the user', error);
+      console.error('error creating the user', error);
     }
   }
 
