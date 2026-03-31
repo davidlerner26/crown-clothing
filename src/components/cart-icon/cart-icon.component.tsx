@@ -8,7 +8,11 @@ import { setIsCartOpen } from '../../store/cart/cart.action';
 
 import ShoppingIcon from '../../assets/shopping-bag.svg';
 
-import { CartIconContainer, ItemCount } from './cart-icon.styles';
+import {
+  CartIconContainer,
+  CartIconImage,
+  ItemCount,
+} from './cart-icon.styles';
 
 const CartIcon = () => {
   const dispatch = useDispatch();
@@ -20,7 +24,7 @@ const CartIcon = () => {
 
   return (
     <CartIconContainer onClick={toggleIsCartOpen}>
-      <img src={ShoppingIcon} alt="Shopping icon" />
+      <CartIconImage src={ShoppingIcon} alt="Shopping icon" />
       <ItemCount>{cartCount}</ItemCount>
     </CartIconContainer>
   );
