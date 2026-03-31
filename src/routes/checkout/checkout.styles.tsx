@@ -32,9 +32,10 @@ export const TotalRow = styled.div`
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  margin-top: 30px;
 `;
 
 export const Total = styled.p`
-  margin: 30px 0 0;
+  margin: 0;
   font-size: 36px;
 `;

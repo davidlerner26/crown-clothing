@@ -15,9 +15,9 @@ import {
   Total,
   TotalRow,
 } from './checkout.styles';
-import { PaymentButton } from '../../components/payment-form/payment-form.styles';
 import { BUTTON_TYPE_CLASSES } from '../../components/button/button-type-classes';
 import { CurrencyFormatter } from '../../components/currency-formatter/currency-formatter.component';
+import Button from '../../components/button/button.component';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
@@ -51,9 +51,7 @@ const Checkout = () => {
             locale="en-US"
           />
         </Total>
-        <PaymentButton buttonType={BUTTON_TYPE_CLASSES.base}>
-          Pay now
-        </PaymentButton>
+        <Button buttonType={BUTTON_TYPE_CLASSES.base}>Pay now</Button>
       </TotalRow>
       <PaymentForm />
     </CheckoutContainer>
