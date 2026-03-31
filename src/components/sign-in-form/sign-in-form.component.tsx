@@ -21,10 +21,6 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
-
   const signInWithGoogle = async () => {
     dispatch(googleSignInStart());
   };
@@ -34,7 +30,6 @@ const SignInForm = () => {
 
     try {
       dispatch(emailSignInStart(email, password));
-      resetFormFields();
     } catch (error) {
       console.error('user sign in failed', error);
     }
