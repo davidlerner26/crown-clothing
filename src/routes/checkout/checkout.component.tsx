@@ -13,35 +13,40 @@ import {
   CheckoutHeader,
   HeaderBlock,
   Total,
+  TotalRow,
 } from './checkout.styles';
+import { PaymentButton } from '../../components/payment-form/payment-form.styles';
+import { BUTTON_TYPE_CLASSES } from '../../components/button/button-type-classes';
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+  const tableColumns = [
+    'Product',
+    'Description',
+    'Quantity',
+    'Price',
+    'Remove',
+  ];
 
   return (
     <CheckoutContainer>
       <CheckoutHeader>
-        <HeaderBlock>
-          <span>Product</span>
-        </HeaderBlock>
-        <HeaderBlock>
-          <span>Description</span>
-        </HeaderBlock>
-        <HeaderBlock>
-          <span>Quantity</span>
-        </HeaderBlock>
-        <HeaderBlock>
-          <span>Price</span>
-        </HeaderBlock>
-        <HeaderBlock>
-          <span>Remove</span>
-        </HeaderBlock>
+        {tableColumns.map((tableColumn, idx) => (
+          <HeaderBlock key={idx}>
+            <span>{tableColumn}</span>
+          </HeaderBlock>
+        ))}
       </CheckoutHeader>
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <Total>Total: ${cartTotal}</Total>
+      <TotalRow>
+        <Total>Total: ${cartTotal}</Total>
+        <PaymentButton buttonType={BUTTON_TYPE_CLASSES.base}>
+          Pay now
+        </PaymentButton>
+      </TotalRow>
       <PaymentForm />
     </CheckoutContainer>
   );

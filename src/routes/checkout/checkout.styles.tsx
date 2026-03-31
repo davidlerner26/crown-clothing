@@ -26,8 +26,15 @@ export const HeaderBlock = styled.div`
   }
 `;
 
-export const Total = styled.span`
-  margin-top: 30px;
-  margin-left: auto;
+export const TotalRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+`;
+
+export const Total = styled.p`
+  margin: 30px 0 0;
   font-size: 36px;
 `;
