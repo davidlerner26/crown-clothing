@@ -18,6 +18,8 @@ import {
   LogoContainer,
   NavLinkButton,
 } from './navigation.styles';
+import { setIsCartOpen } from '../../store/cart/cart.action';
+import { ClickOutside } from '../../components/cick-outside/cick-outside.component';
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -44,8 +46,12 @@ const Navigation = () => {
           )}
           <CartIcon />
         </NavLinks>
-        {isCartOpen && <CartDropdown />}
       </NavigationContainer>
+      {isCartOpen && (
+        <ClickOutside onClickOutside={() => dispatch(setIsCartOpen(false))}>
+          <CartDropdown />
+        </ClickOutside>
+      )}
       <Outlet />
     </Fragment>
   );
