@@ -36,6 +36,7 @@ const Checkout = () => {
 
   const payNow = () => {
     if (currentUser) {
+      navigate('/payment');
     } else {
       navigate('/auth');
     }
@@ -66,7 +67,6 @@ const Checkout = () => {
           Pay now
         </Button>
       </TotalRow>
-      <PaymentForm />
     </CheckoutContainer>
   );
 };

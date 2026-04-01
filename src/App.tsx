@@ -7,6 +7,7 @@ import Spinner from './components/spinner/spinner.component';
 import { checkUserSession } from './store/user/user.action';
 
 import { GlobalStyle } from './global.styles';
+import PaymentForm from './components/payment-form/payment-form.component';
 
 const Navigation = lazy(
   () => import('./routes/navigation/navigation.component'),
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="shop/*" element={<Shop />} />
           <Route path="auth" element={<Authentication />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="payment" element={<PaymentForm />} />
         </Route>
       </Routes>
     </Suspense>
