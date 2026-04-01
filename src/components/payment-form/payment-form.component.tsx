@@ -2,9 +2,10 @@ import { useState, type SubmitEvent } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import type { StripeCardElement } from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
-
 import { selectCartTotal } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 
 import {
   PaymentFormContainer,
@@ -23,6 +24,8 @@ const PaymentForm = () => {
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
+  const [isPaymentProcessed, setIsPaymentProcessed] = useState(false);
 
   const paymentHandler = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,26 +64,45 @@ const PaymentForm = () => {
     setIsProcessingPayment(false);
 
     if (paymentResult.error) {
-      alert(paymentResult.error);
+      console.error(paymentResult.error);
+      setIsPaymentSuccessful(false);
+    } else if (paymentResult.paymentIntent.status === 'succeeded') {
+      setIsPaymentSuccessful(true);
     } else {
-      if (paymentResult.paymentIntent.status === 'succeeded') {
-        alert('Payment Successful');
-      }
+      setIsPaymentSuccessful(false);
     }
+    setIsPaymentProcessed(true);
   };
 
   return (
     <PaymentFormContainer>
-      <FormContainer onSubmit={paymentHandler}>
-        <h2>Credit Card Payment: </h2>
-        <CardElement />
-        <PaymentButton
-          isLoading={isProcessingPayment}
-          buttonType={BUTTON_TYPE_CLASSES.inverted}
-        >
-          Pay now
-        </PaymentButton>
-      </FormContainer>
+      {isPaymentProcessed ? (
+        isPaymentSuccessful ? (
+          <>
+            <CheckCircleIcon
+              color="success"
+              sx={{ width: '150px', height: '150px' }}
+            />
+            <h2>Payment was successful</h2>
+          </>
+        ) : (
+          <>
+            <ErrorIcon sx={{ color: 'red', width: '150px', height: '150px' }} />
+            <h2>Failed to process payment</h2>
+          </>
+        )
+      ) : (
+        <FormContainer onSubmit={paymentHandler}>
+          <h2>Credit Card Payment: </h2>
+          <CardElement />
+          <PaymentButton
+            isLoading={isProcessingPayment}
+            buttonType={BUTTON_TYPE_CLASSES.inverted}
+          >
+            Pay now
+          </PaymentButton>
+        </FormContainer>
+      )}
     </PaymentFormContainer>
   );
 };
