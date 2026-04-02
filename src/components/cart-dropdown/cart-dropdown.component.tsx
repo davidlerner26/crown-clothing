@@ -33,7 +33,9 @@ const CartDropdown = () => {
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
       </CartItems>
-      <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
+      {cartItems.length > 0 && (
+        <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
+      )}
     </CartDropdownContainer>
   );
 };
