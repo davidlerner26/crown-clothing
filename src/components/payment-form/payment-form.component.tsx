@@ -1,18 +1,19 @@
-import { useState, type SubmitEvent } from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import type { StripeCardElement } from '@stripe/stripe-js';
-import { useSelector } from 'react-redux';
-import { selectCartTotal } from '../../store/cart/cart.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import type { StripeCardElement } from '@stripe/stripe-js';
+import { useState, type SubmitEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartTotal } from '../../store/cart/cart.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
+import { clearAllItemsFromCart } from '../../store/cart/cart.action';
+import { BUTTON_TYPE_CLASSES } from '../button/button-type-classes';
 import {
-  PaymentFormContainer,
   FormContainer,
   PaymentButton,
+  PaymentFormContainer,
 } from './payment-form.styles';
-import { BUTTON_TYPE_CLASSES } from '../button/button-type-classes';
 
 const ifValidCardElement = (
   card: StripeCardElement | null,
@@ -26,6 +27,7 @@ const PaymentForm = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const [isPaymentProcessed, setIsPaymentProcessed] = useState(false);
+  const dispatch = useDispatch();
 
   const paymentHandler = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,6 +70,7 @@ const PaymentForm = () => {
       setIsPaymentSuccessful(false);
     } else if (paymentResult.paymentIntent.status === 'succeeded') {
       setIsPaymentSuccessful(true);
+      dispatch(clearAllItemsFromCart());
     } else {
       setIsPaymentSuccessful(false);
     }
