@@ -1,5 +1,3 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import type { StripeCardElement } from '@stripe/stripe-js';
 import { useState, type SubmitEvent } from 'react';
@@ -14,6 +12,7 @@ import {
   PaymentButton,
   PaymentFormContainer,
 } from './payment-form.styles';
+import PaymentFeedback from '../payment-feedback/payment-feedback.component';
 
 const ifValidCardElement = (
   card: StripeCardElement | null,
@@ -80,20 +79,7 @@ const PaymentForm = () => {
   return (
     <PaymentFormContainer>
       {isPaymentProcessed ? (
-        isPaymentSuccessful ? (
-          <>
-            <CheckCircleIcon
-              color="success"
-              sx={{ width: '150px', height: '150px' }}
-            />
-            <h2>Payment was successful</h2>
-          </>
-        ) : (
-          <>
-            <ErrorIcon sx={{ color: 'red', width: '150px', height: '150px' }} />
-            <h2>Failed to process payment</h2>
-          </>
-        )
+        <PaymentFeedback isPaymentSuccessful={isPaymentSuccessful} />
       ) : (
         <FormContainer onSubmit={paymentHandler}>
           <h2>Credit Card Payment: </h2>
