@@ -19,6 +19,7 @@ const defaultFormFields = {
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const [displayError, setDisplayError] = useState('');
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -46,7 +47,7 @@ const SignInForm = () => {
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      <Alert severity="error">This is an error Alert.</Alert>
+      {displayError && <Alert severity="error">This is an error Alert.</Alert>}
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
