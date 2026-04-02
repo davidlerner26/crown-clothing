@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
+type NavigationProps = {
+  $isCurrentRoute?: boolean;
+};
+
 export const NavigationContainer = styled.div`
   height: 70px;
   width: 100%;
@@ -43,8 +47,13 @@ const navLinkStyles = css`
   cursor: pointer;
 `;
 
-export const NavLink = styled(Link)`
+const isCurrentRouteStyles = css`
+  border-bottom: 1px solid currentColor;
+`;
+
+export const NavLink = styled(Link)<NavigationProps>`
   ${navLinkStyles}
+  ${({ $isCurrentRoute }) => ($isCurrentRoute ? isCurrentRouteStyles : '')}
 `;
 
 export const NavLinkButton = styled.button`

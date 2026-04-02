@@ -10,6 +10,7 @@ import {
   emailSignInStart,
 } from '../../store/user/user.action';
 import { BUTTON_TYPE_CLASSES } from '../button/button-type-classes';
+import Alert from '@mui/material/Alert';
 
 const defaultFormFields = {
   email: '',
@@ -45,6 +46,7 @@ const SignInForm = () => {
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
+      <Alert severity="error">This is an error Alert.</Alert>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"

@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
@@ -25,8 +26,16 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
-
   const signOutUser = () => dispatch(signOutStart());
+  const { pathname } = useLocation();
+  const items = [
+    { to: '/shop', label: 'SHOP' },
+    { to: '/auth', label: 'SIGN IN' },
+  ];
+
+  const isCurrentRoute = (item: { to: string }) => {
+    return pathname.startsWith(item.to);
+  };
 
   return (
     <Fragment>
@@ -35,15 +44,29 @@ const Navigation = () => {
           <img src={CrownLogo} alt="Crown logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to="/shop">SHOP</NavLink>
+          {items.map((item) => {
+            if (item.to === '/auth' && currentUser) {
+              return (
+                <NavLinkButton
+                  key="sign-out"
+                  type="button"
+                  onClick={signOutUser}
+                >
+                  SIGN OUT
+                </NavLinkButton>
+              );
+            }
 
-          {currentUser ? (
-            <NavLinkButton type="button" onClick={signOutUser}>
-              SIGN OUT
-            </NavLinkButton>
-          ) : (
-            <NavLink to="/auth">SIGN IN</NavLink>
-          )}
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                $isCurrentRoute={isCurrentRoute(item)}
+              >
+                {item.label}
+              </NavLink>
+            );
+          })}
           <CartIcon />
         </NavLinks>
       </NavigationContainer>
