@@ -1,16 +1,18 @@
-import { useState, type SubmitEvent, type ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState, type ChangeEvent, type SubmitEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+import FormInput from '../form-input/form-input.component';
 
-import { SignInContainer, ButtonsContainer } from './sign-in-form.styles';
+import Alert from '@mui/material/Alert';
 import {
-  googleSignInStart,
   emailSignInStart,
+  googleSignInStart,
 } from '../../store/user/user.action';
 import { BUTTON_TYPE_CLASSES } from '../button/button-type-classes';
-import Alert from '@mui/material/Alert';
+import { ButtonsContainer, SignInContainer } from './sign-in-form.styles';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
   email: '',
@@ -22,6 +24,14 @@ const SignInForm = () => {
   const [displayError, setDisplayError] = useState('');
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const currentUser = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   const signInWithGoogle = async () => {
     dispatch(googleSignInStart());
