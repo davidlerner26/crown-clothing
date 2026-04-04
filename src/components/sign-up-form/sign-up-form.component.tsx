@@ -1,28 +1,40 @@
-import { useState, type SubmitEvent, type ChangeEvent, useEffect } from 'react';
 import { type AuthError, AuthErrorCodes } from 'firebase/auth';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+import FormInput from '../form-input/form-input.component';
 
-import { SignUpContainer } from './sign-up-form.styles';
-import { signUpStart } from '../../store/user/user.action';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { signUpStart } from '../../store/user/user.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
+import { SignUpContainer } from './sign-up-form.styles';
 
-const defaultFormFields = {
-  displayName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+type Inputs = {
+  displayName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };
 
 const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      displayName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+  console.log(errors);
 
   useEffect(() => {
     if (currentUser) {
@@ -30,12 +42,8 @@ const SignUpForm = () => {
     }
   }, [currentUser, navigate]);
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
-
-  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { displayName, email, password, confirmPassword } = data;
 
     if (password !== confirmPassword) {
       alert('passwords do not match');
@@ -44,7 +52,6 @@ const SignUpForm = () => {
 
     try {
       dispatch(signUpStart(email, password, displayName));
-      resetFormFields();
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert('Cannot create user, email already in use');
@@ -54,51 +61,37 @@ const SignUpForm = () => {
     }
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setFormFields({ ...formFields, [name]: value });
-  };
-
   return (
     <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
+          {...register('displayName', { required: true })}
           label="Display Name"
           type="text"
-          required
-          onChange={handleChange}
           name="displayName"
-          value={displayName}
         />
 
         <FormInput
+          {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
           label="Email"
           type="email"
-          required
-          onChange={handleChange}
           name="email"
-          value={email}
         />
 
         <FormInput
+          {...register('password', { required: true, minLength: 6 })}
           label="Password"
           type="password"
-          required
-          onChange={handleChange}
           name="password"
-          value={password}
         />
 
         <FormInput
+          {...register('confirmPassword', { required: true })}
           label="Confirm Password"
           type="password"
-          required
-          onChange={handleChange}
           name="confirmPassword"
-          value={confirmPassword}
         />
         <Button type="submit">Sign Up</Button>
       </form>
