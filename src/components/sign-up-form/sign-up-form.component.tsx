@@ -11,7 +11,7 @@ import { signUpStart } from '../../store/user/user.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { SignUpContainer } from './sign-up-form.styles';
 
-type Inputs = {
+export type Inputs = {
   displayName: string;
   email: string;
   password: string;
@@ -34,7 +34,6 @@ const SignUpForm = () => {
       confirmPassword: '',
     },
   });
-  console.log(errors);
 
   useEffect(() => {
     if (currentUser) {
@@ -71,6 +70,7 @@ const SignUpForm = () => {
           label="Display Name"
           type="text"
           name="displayName"
+          error={errors.displayName}
         />
 
         <FormInput
@@ -78,6 +78,7 @@ const SignUpForm = () => {
           label="Email"
           type="email"
           name="email"
+          error={errors.email}
         />
 
         <FormInput
@@ -85,6 +86,7 @@ const SignUpForm = () => {
           label="Password"
           type="password"
           name="password"
+          error={errors.password}
         />
 
         <FormInput
@@ -92,8 +94,11 @@ const SignUpForm = () => {
           label="Confirm Password"
           type="password"
           name="confirmPassword"
+          error={errors.confirmPassword}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" disabled={errors ? true : false}>
+          Sign Up
+        </Button>
       </form>
     </SignUpContainer>
   );
