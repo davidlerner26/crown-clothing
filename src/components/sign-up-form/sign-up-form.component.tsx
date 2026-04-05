@@ -1,16 +1,18 @@
-import { type AuthError, AuthErrorCodes } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
+import Alert from '@mui/material/Alert';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { signUpStart } from '../../store/user/user.action';
-import { selectCurrentUser } from '../../store/user/user.selector';
+import {
+  selectCurrentUser,
+  selectSignUpError,
+} from '../../store/user/user.selector';
 import { SignUpContainer } from './sign-up-form.styles';
-import Alert from '@mui/material/Alert';
 
 export type Inputs = {
   displayName: string;
@@ -23,7 +25,12 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const [signUpError, setSignUpError] = useState('');
+  const error = useSelector(selectSignUpError);
+  let errorMessage = null;
+  if (error) {
+    errorMessage = error.message;
+  }
+
   const {
     register,
     handleSubmit,
@@ -43,31 +50,20 @@ const SignUpForm = () => {
     }
   }, [currentUser, navigate]);
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { displayName, email, password, confirmPassword } = data;
+  const onSubmit: SubmitHandler<Inputs> = async (data, event) => {
+    event?.stopPropagation();
+    const { displayName, email, password } = data;
 
-    if (password !== confirmPassword) {
-      alert('passwords do not match');
-      return;
-    }
-
-    try {
-      dispatch(signUpStart(email, password, displayName));
-    } catch (error) {
-      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
-        setSignUpError('Cannot create user, email already in use');
-      } else {
-        setSignUpError('User creation encountered an error');
-        console.error(error);
-      }
-    }
+    dispatch(signUpStart(email, password, displayName));
   };
 
   return (
     <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
-      {signUpError && <Alert severity="error">{signUpError}</Alert>}
+      {errorMessage && errorMessage !== '' && (
+        <Alert severity="error">{errorMessage}</Alert>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           {...register('displayName', { required: true })}
@@ -100,7 +96,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           error={errors.confirmPassword}
         />
-        <Button type="submit" disabled={errors ? true : false}>
+        <Button type="submit" disabled={errors ? false : false}>
           Sign Up
         </Button>
       </form>

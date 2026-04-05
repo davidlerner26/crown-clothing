@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectError } from '../../store/user/user.selector';
+import { selectSignInError } from '../../store/user/user.selector';
 
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
@@ -25,7 +25,11 @@ const SignInForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const error = useSelector(selectError);
+  const error = useSelector(selectSignInError);
+  let errorMessage = '';
+  if (error) {
+    errorMessage = error.message;
+  }
 
   useEffect(() => {
     if (currentUser) {
@@ -48,7 +52,8 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data, event) => {
+    event?.stopPropagation();
     const { email, password } = data;
 
     dispatch(emailSignInStart(email, password));
@@ -58,7 +63,9 @@ const SignInForm = () => {
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      {error?.message && <Alert severity="error">{error.message}</Alert>}
+      {errorMessage && errorMessage !== '' && (
+        <Alert severity="error">{errorMessage}</Alert>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
