@@ -15,6 +15,7 @@ import {
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { BUTTON_TYPE_CLASSES } from '../button/button-type-classes';
 import { ButtonsContainer, SignInContainer } from './sign-in-form.styles';
+import { AuthErrorCodes, type AuthError } from 'firebase/auth';
 
 export type Inputs = {
   email: string;
@@ -28,7 +29,13 @@ const SignInForm = () => {
   const error = useSelector(selectSignInError);
   let errorMessage = '';
   if (error) {
-    errorMessage = error.message;
+    if (
+      (error as AuthError).code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS
+    ) {
+      errorMessage = 'Invalid email or password.';
+    } else {
+      errorMessage = error.message;
+    }
   }
 
   useEffect(() => {

@@ -13,6 +13,7 @@ import {
   selectSignUpError,
 } from '../../store/user/user.selector';
 import { SignUpContainer } from './sign-up-form.styles';
+import { AuthErrorCodes, type AuthError } from 'firebase/auth';
 
 export type Inputs = {
   displayName: string;
@@ -28,7 +29,11 @@ const SignUpForm = () => {
   const error = useSelector(selectSignUpError);
   let errorMessage = null;
   if (error) {
-    errorMessage = error.message;
+    if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+      errorMessage = 'Cannot create user, email already in use.';
+    } else {
+      errorMessage = error.message;
+    }
   }
 
   const {
