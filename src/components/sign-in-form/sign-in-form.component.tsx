@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectError } from '../../store/user/user.selector';
 
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
@@ -24,7 +25,7 @@ const SignInForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const [signInError, setSignInError] = useState('');
+  const error = useSelector(selectError);
 
   useEffect(() => {
     if (currentUser) {
@@ -50,19 +51,14 @@ const SignInForm = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, password } = data;
 
-    try {
-      dispatch(emailSignInStart(email, password));
-    } catch (error) {
-      setSignInError('user sign in failed');
-      console.error(error);
-    }
+    dispatch(emailSignInStart(email, password));
   };
 
   return (
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      {signInError && <Alert severity="error">{signInError}</Alert>}
+      {error?.message && <Alert severity="error">{error.message}</Alert>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
