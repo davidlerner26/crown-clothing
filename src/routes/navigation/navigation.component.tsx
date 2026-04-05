@@ -1,31 +1,38 @@
 import { Fragment } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
-import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
+import CartIcon from '../../components/cart-icon/cart-icon.component';
 
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
 import { signOutStart } from '../../store/user/user.action';
+import {
+  selectCurrentUser,
+  selectSignOutError,
+} from '../../store/user/user.selector';
 
 import CrownLogo from '../../assets/crown.svg';
 
-import {
-  NavigationContainer,
-  NavLinks,
-  NavLink,
-  LogoContainer,
-  NavLinkButton,
-} from './navigation.styles';
-import { setIsCartOpen } from '../../store/cart/cart.action';
 import { ClickOutside } from '../../components/cick-outside/cick-outside.component';
+import ErrorMessage from '../../components/error-message/error-message.component';
+import { setIsCartOpen } from '../../store/cart/cart.action';
+import {
+  LogoContainer,
+  NavigationContainer,
+  NavLink,
+  NavLinkButton,
+  NavLinks,
+} from './navigation.styles';
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const error = useSelector(selectSignOutError);
+  const errorMessage: string = error ? 'Failed to sign out current user.' : '';
+
   const signOutUser = () => dispatch(signOutStart());
   const { pathname } = useLocation();
   const items = [
@@ -43,6 +50,7 @@ const Navigation = () => {
         <LogoContainer to="/">
           <img src={CrownLogo} alt="Crown logo" />
         </LogoContainer>
+        <ErrorMessage errorMessage={errorMessage} />
         <NavLinks>
           {items.map((item) => {
             if (item.to === '/auth' && currentUser) {

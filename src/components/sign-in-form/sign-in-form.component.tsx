@@ -5,7 +5,7 @@ import { selectSignInError } from '../../store/user/user.selector';
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 
-import Alert from '@mui/material/Alert';
+import { AuthErrorCodes, type AuthError } from 'firebase/auth';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,8 +14,8 @@ import {
 } from '../../store/user/user.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { BUTTON_TYPE_CLASSES } from '../button/button-type-classes';
+import ErrorMessage from '../error-message/error-message.component';
 import { ButtonsContainer, SignInContainer } from './sign-in-form.styles';
-import { AuthErrorCodes, type AuthError } from 'firebase/auth';
 
 export type Inputs = {
   email: string;
@@ -36,6 +36,8 @@ const SignInForm = () => {
     } else {
       errorMessage = error.message;
     }
+  } else {
+    errorMessage = '';
   }
 
   useEffect(() => {
@@ -70,9 +72,7 @@ const SignInForm = () => {
     <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      {errorMessage && errorMessage !== '' && (
-        <Alert severity="error">{errorMessage}</Alert>
-      )}
+      <ErrorMessage errorMessage={errorMessage} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
