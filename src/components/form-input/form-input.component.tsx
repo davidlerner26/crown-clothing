@@ -1,4 +1,4 @@
-import type { FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes, ReactNode } from 'react';
 
 import type { FieldError } from 'react-hook-form';
 import { FormInputLabel, Group, Input } from './form-input.styles';
@@ -25,7 +25,7 @@ const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
           </FormInputLabel>
         )}
       </Group>
-      {error && <span>{error}</span>}
+      {error && <span>{error as ReactNode}</span>}
     </>
   );
 };

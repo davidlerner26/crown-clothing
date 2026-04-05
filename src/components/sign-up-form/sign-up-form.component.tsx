@@ -1,5 +1,5 @@
 import { type AuthError, AuthErrorCodes } from 'firebase/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../button/button.component';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { signUpStart } from '../../store/user/user.action';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { SignUpContainer } from './sign-up-form.styles';
+import Alert from '@mui/material/Alert';
 
 export type Inputs = {
   displayName: string;
@@ -22,6 +23,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
+  const [signUpError, setSignUpError] = useState('');
   const {
     register,
     handleSubmit,
@@ -53,9 +55,10 @@ const SignUpForm = () => {
       dispatch(signUpStart(email, password, displayName));
     } catch (error) {
       if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
-        alert('Cannot create user, email already in use');
+        setSignUpError('Cannot create user, email already in use');
       } else {
-        console.error('user creation encountered an error', error);
+        setSignUpError('User creation encountered an error');
+        console.error(error);
       }
     }
   };
@@ -64,6 +67,7 @@ const SignUpForm = () => {
     <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
+      {signUpError && <Alert severity="error">{signUpError}</Alert>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           {...register('displayName', { required: true })}
