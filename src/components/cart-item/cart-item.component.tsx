@@ -1,6 +1,6 @@
 import { type FC, memo } from 'react';
 
-import { CartItemContainer, ItemDetails } from './cart-item.styles';
+import { CartCount, CartItemContainer, ItemDetails } from './cart-item.styles';
 
 import type { CartItem as TCartItem } from '../../store/cart/cart.types';
 import { CurrencyFormatter } from '../currency-formatter/currency-formatter.component';
@@ -33,7 +33,7 @@ const CartItem: FC<CartItemProps> = memo(({ cartItem, cartItems }) => {
       <ItemDetails>
         <div>
           <span>{name}</span>
-          <div>
+          <CartCount>
             <Arrow onClick={removeItemHandler}>&#10094;</Arrow>
             <span>
               {quantityText}
@@ -44,7 +44,7 @@ const CartItem: FC<CartItemProps> = memo(({ cartItem, cartItems }) => {
               />
             </span>
             <Arrow onClick={addItemHandler}>&#10095;</Arrow>
-          </div>
+          </CartCount>
         </div>
         <RemoveButton onClick={clearItemHandler}>&#10005;</RemoveButton>
       </ItemDetails>

@@ -4,7 +4,7 @@ export const CartItemContainer = styled.div`
   width: 100%;
   display: flex;
   height: 80px;
-  margin-bottom: 15px;
+  margin-bottom: 0.5rem;
 
   img {
     width: 30%;
@@ -14,12 +14,16 @@ export const CartItemContainer = styled.div`
 export const ItemDetails = styled.div`
   width: 70%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 10px 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
 
   span {
-    font-size: 16px;
+    font-size: 1rem;
   }
+`;
+
+export const CartCount = styled.div`
+  display: flex;
+  column-gap: 0.25rem;
 `;
