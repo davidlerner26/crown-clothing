@@ -75,19 +75,24 @@ const SignInForm = () => {
       <ErrorMessage errorMessage={errorMessage} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          {...register('email')}
+          {...register('email', {
+            required: 'Email is required',
+          })}
           label="Email"
           type="email"
           error={errors.email}
         />
 
         <FormInput
-          {...register('password')}
+          {...register('password', {
+            required: 'Password is required',
+          })}
           label="Password"
           type="password"
           name="password"
           error={errors.password}
         />
+
         <ButtonsContainer>
           <Button type="submit">Sign In</Button>
           <Button

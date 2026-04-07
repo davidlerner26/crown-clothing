@@ -63,5 +63,5 @@ export const Group = styled.div`
 export const FormInputError = styled.small`
   position: absolute;
   color: red;
-  bottom: -30px;
+  bottom: -25px;
 `;
