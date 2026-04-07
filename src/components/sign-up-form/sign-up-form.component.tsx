@@ -14,6 +14,7 @@ import {
 } from '../../store/user/user.selector';
 import ErrorMessage from '../error-message/error-message.component';
 import { SignUpContainer } from './sign-up-form.styles';
+import { selectIsLoading } from '../../store/loading/loading.selector';
 
 export type Inputs = {
   displayName: string;
@@ -23,6 +24,7 @@ export type Inputs = {
 };
 
 const SignUpForm = () => {
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
@@ -123,7 +125,11 @@ const SignUpForm = () => {
           name="confirmPassword"
           error={errors.confirmPassword}
         />
-        <Button type="submit" disabled={errors ? false : false}>
+        <Button
+          type="submit"
+          disabled={errors ? false : false}
+          isLoading={isLoading}
+        >
           Sign Up
         </Button>
       </form>

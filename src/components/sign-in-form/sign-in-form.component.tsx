@@ -8,6 +8,7 @@ import FormInput from '../form-input/form-input.component';
 import { AuthErrorCodes, type AuthError } from 'firebase/auth';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { selectIsLoading } from '../../store/loading/loading.selector';
 import {
   emailSignInStart,
   googleSignInStart,
@@ -23,6 +24,7 @@ export type Inputs = {
 };
 
 const SignInForm = () => {
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
@@ -95,7 +97,9 @@ const SignInForm = () => {
         />
 
         <ButtonsContainer>
-          <Button type="submit">Sign In</Button>
+          <Button type="submit" isLoading={isLoading}>
+            Sign In
+          </Button>
           <Button
             buttonType={BUTTON_TYPE_CLASSES.google}
             type="button"
