@@ -18,9 +18,10 @@ const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
   return (
     <FormInputContainer>
       <Group>
-        <Input {...otherProps} />
+        <Input error={error?.message} {...otherProps} />
         {label && (
           <FormInputLabel
+            error={error?.message}
             shrink={Boolean(
               otherProps.value &&
               typeof otherProps.value === 'string' &&
