@@ -15,13 +15,15 @@ type FormInputProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
+  const message = error?.message ?? '';
+
   return (
     <FormInputContainer>
       <Group>
-        <Input error={error?.message} {...otherProps} />
+        <Input error={message} {...otherProps} />
         {label && (
           <FormInputLabel
-            error={error?.message}
+            error={message}
             shrink={Boolean(
               otherProps.value &&
               typeof otherProps.value === 'string' &&
@@ -32,9 +34,7 @@ const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
           </FormInputLabel>
         )}
       </Group>
-      <FormInputError>
-        {error?.message && <span>{error.message}</span>}
-      </FormInputError>
+      <FormInputError>{message && <span>{message}</span>}</FormInputError>
     </FormInputContainer>
   );
 };
