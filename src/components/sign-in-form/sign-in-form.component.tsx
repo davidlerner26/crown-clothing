@@ -29,10 +29,11 @@ const SignInForm = () => {
   const error = useSelector(selectSignInError);
   let errorMessage = '';
   if (error) {
-    if (
-      (error as AuthError).code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS
-    ) {
+    const errorCode = (error as AuthError).code;
+    if (errorCode === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
       errorMessage = 'Invalid email or password.';
+    } else if (errorCode === AuthErrorCodes.POPUP_CLOSED_BY_USER) {
+      errorMessage = '';
     } else {
       errorMessage = error.message;
     }
