@@ -25,6 +25,15 @@ export const BaseButton = styled.button`
     background-color: white;
     color: black;
     border: 1px solid black;
+    &:disabled {
+      color: white;
+      background-color: black;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 `;
 

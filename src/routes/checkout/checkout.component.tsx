@@ -62,7 +62,11 @@ const Checkout = () => {
             locale="en-US"
           />
         </Total>
-        <Button buttonType={BUTTON_TYPE_CLASSES.base} onClick={payNow}>
+        <Button
+          disabled={!cartItems.length}
+          buttonType={BUTTON_TYPE_CLASSES.base}
+          onClick={payNow}
+        >
           Pay now
         </Button>
       </TotalRow>
