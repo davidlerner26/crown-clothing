@@ -1,7 +1,13 @@
 import type { FC, InputHTMLAttributes } from 'react';
 
 import type { FieldError } from 'react-hook-form';
-import { FormInputLabel, Group, Input } from './form-input.styles';
+import {
+  FormInputContainer,
+  FormInputError,
+  FormInputLabel,
+  Group,
+  Input,
+} from './form-input.styles';
 
 type FormInputProps = {
   label: string;
@@ -10,7 +16,7 @@ type FormInputProps = {
 
 const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
   return (
-    <>
+    <FormInputContainer>
       <Group>
         <Input {...otherProps} />
         {label && (
@@ -25,8 +31,10 @@ const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
           </FormInputLabel>
         )}
       </Group>
-      {error?.message && <span>{error.message}</span>}
-    </>
+      <FormInputError>
+        {error?.message && <span>{error.message}</span>}
+      </FormInputError>
+    </FormInputContainer>
   );
 };
 

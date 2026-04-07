@@ -13,6 +13,10 @@ type FormInputLabelProps = {
   shrink?: boolean;
 };
 
+export const FormInputContainer = styled.div`
+  position: relative;
+`;
+
 export const FormInputLabel = styled.label<FormInputLabelProps>`
   color: ${subColor};
   font-size: 16px;
@@ -54,4 +58,10 @@ export const Group = styled.div`
   input[type='password'] {
     letter-spacing: 0.3em;
   }
+`;
+
+export const FormInputError = styled.small`
+  position: absolute;
+  color: red;
+  bottom: -30px;
 `;
