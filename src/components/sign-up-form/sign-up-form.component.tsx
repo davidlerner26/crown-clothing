@@ -43,6 +43,7 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
+    mode: 'onChange',
     defaultValues: {
       displayName: '',
       email: '',
@@ -71,7 +72,13 @@ const SignUpForm = () => {
       <ErrorMessage errorMessage={errorMessage} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          {...register('displayName', { required: true })}
+          {...register('displayName', {
+            required: 'Display Name is required',
+            minLength: {
+              value: 3,
+              message: 'Please enter a valid name',
+            },
+          })}
           label="Display Name"
           type="text"
           name="displayName"
@@ -79,15 +86,26 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Please enter a valid email address',
+            },
+          })}
           label="Email"
           type="email"
-          name="email"
           error={errors.email}
         />
 
         <FormInput
-          {...register('password', { required: true, minLength: 6 })}
+          {...register('password', {
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Please enter a password with 6 characters or more',
+            },
+          })}
           label="Password"
           type="password"
           name="password"
@@ -95,7 +113,11 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          {...register('confirmPassword', { required: true })}
+          {...register('confirmPassword', {
+            required: 'Please confirm your password',
+            validate: (value, formValues) =>
+              value === formValues.password || 'Passwords do not match',
+          })}
           label="Confirm Password"
           type="password"
           name="confirmPassword"

@@ -75,15 +75,14 @@ const SignInForm = () => {
       <ErrorMessage errorMessage={errorMessage} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+          {...register('email')}
           label="Email"
           type="email"
-          name="email"
           error={errors.email}
         />
 
         <FormInput
-          {...register('password', { required: true })}
+          {...register('password')}
           label="Password"
           type="password"
           name="password"
