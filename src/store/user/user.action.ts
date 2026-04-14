@@ -61,6 +61,16 @@ export type SignOutFailed = ActionWithPayload<
   Error
 >;
 
+export type SignInIsLoading = ActionWithPayload<
+  USER_ACTION_TYPES.SIGN_IN_IS_LOADING,
+  { signInIsLoading: boolean }
+>;
+
+export type SignUpIsLoading = ActionWithPayload<
+  USER_ACTION_TYPES.SIGN_UP_IS_LOADING,
+  { signUpIsLoading: boolean }
+>;
+
 export const checkUserSession = withMatcher(
   (): CheckUserSession => createAction(USER_ACTION_TYPES.CHECK_USER_SESSION),
 );
@@ -122,4 +132,14 @@ export const signOutSuccess = withMatcher(
 export const signOutFailed = withMatcher(
   (error: Error): SignOutFailed =>
     createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error),
+);
+
+export const signInIsLoading = withMatcher(
+  (signInIsLoading: boolean): SignInIsLoading =>
+    createAction(USER_ACTION_TYPES.SIGN_IN_IS_LOADING, { signInIsLoading }),
+);
+
+export const signUpIsLoading = withMatcher(
+  (signUpIsLoading: boolean): SignUpIsLoading =>
+    createAction(USER_ACTION_TYPES.SIGN_UP_IS_LOADING, { signUpIsLoading }),
 );

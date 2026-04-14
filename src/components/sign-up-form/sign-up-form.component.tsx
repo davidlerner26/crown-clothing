@@ -10,11 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import { signUpStart } from '../../store/user/user.action';
 import {
   selectCurrentUser,
+  selectIsSignUpLoading,
   selectSignUpError,
 } from '../../store/user/user.selector';
 import ErrorMessage from '../error-message/error-message.component';
 import { SignUpContainer } from './sign-up-form.styles';
-import { selectIsLoading } from '../../store/loading/loading.selector';
 
 export type Inputs = {
   displayName: string;
@@ -24,7 +24,7 @@ export type Inputs = {
 };
 
 const SignUpForm = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectIsSignUpLoading);
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();

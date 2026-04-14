@@ -13,6 +13,8 @@ import {
   type EmailSignInStart,
   type SignUpStart,
   type SignUpSuccess,
+  signInIsLoading,
+  signUpIsLoading,
 } from './user.action';
 
 import {
@@ -48,10 +50,13 @@ export function* getSnapshotFromUserAuth(
 
 export function* signInWithGoogle() {
   try {
+    yield* put(signInIsLoading(true));
     const { user } = yield* call(signInWithGooglePopup);
     yield* call(getSnapshotFromUserAuth, user);
+    yield* put(signInIsLoading(false));
   } catch (error) {
     yield* put(signInFailed(error as Error));
+    yield* put(signInIsLoading(false));
   }
 }
 
@@ -59,6 +64,7 @@ export function* signInWithEmail({
   payload: { email, password },
 }: EmailSignInStart) {
   try {
+    yield* put(signInIsLoading(true));
     const userCredential = yield* call(
       signInAuthUserWithEmailAndPassword,
       email,
@@ -68,9 +74,11 @@ export function* signInWithEmail({
     if (userCredential) {
       const { user } = userCredential;
       yield* call(getSnapshotFromUserAuth, user);
+      yield* put(signInIsLoading(false));
     }
   } catch (error) {
     yield* put(signInFailed(error as Error));
+    yield* put(signInIsLoading(false));
   }
 }
 
@@ -88,6 +96,7 @@ export function* signUp({
   payload: { email, password, displayName },
 }: SignUpStart) {
   try {
+    yield* put(signUpIsLoading(true));
     const userCredential = yield* call(
       createAuthUserWithEmailAndPassword,
       email,
@@ -97,9 +106,11 @@ export function* signUp({
     if (userCredential) {
       const { user } = userCredential;
       yield* put(signUpSuccess(user, { displayName }));
+      yield* put(signUpIsLoading(false));
     }
   } catch (error) {
     yield* put(signUpFailed(error as Error));
+    yield* put(signUpIsLoading(false));
   }
 }
 

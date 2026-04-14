@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSignInError } from '../../store/user/user.selector';
+import {
+  selectIsSignInLoading,
+  selectSignInError,
+} from '../../store/user/user.selector';
 
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
@@ -8,7 +11,6 @@ import FormInput from '../form-input/form-input.component';
 import { AuthErrorCodes, type AuthError } from 'firebase/auth';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { selectIsLoading } from '../../store/loading/loading.selector';
 import {
   emailSignInStart,
   googleSignInStart,
@@ -24,7 +26,7 @@ export type Inputs = {
 };
 
 const SignInForm = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectIsSignInLoading);
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
@@ -101,6 +103,7 @@ const SignInForm = () => {
             Sign In
           </Button>
           <Button
+            isLoading={isLoading}
             buttonType={BUTTON_TYPE_CLASSES.google}
             type="button"
             onClick={signInWithGoogle}

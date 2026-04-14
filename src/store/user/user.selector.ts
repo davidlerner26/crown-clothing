@@ -30,3 +30,13 @@ export const selectSignOutSuccess = createSelector(
   selectUserReducer,
   (user) => user.signOutSuccess,
 );
+
+export const selectIsSignInLoading = createSelector(
+  selectUserReducer,
+  (user) => user.signInIsLoading,
+);
+
+export const selectIsSignUpLoading = createSelector(
+  selectUserReducer,
+  (user) => user.signUpIsLoading,
+);
