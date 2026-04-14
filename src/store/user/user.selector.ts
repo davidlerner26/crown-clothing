@@ -25,3 +25,8 @@ export const selectSignOutError = createSelector(
   selectUserReducer,
   (user) => user.signOutError,
 );
+
+export const selectNavigateToHome = createSelector(
+  selectUserReducer,
+  (user) => user.navigateToHome,
+);

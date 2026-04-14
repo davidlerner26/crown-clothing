@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
@@ -9,6 +9,7 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { signOutStart } from '../../store/user/user.action';
 import {
   selectCurrentUser,
+  selectNavigateToHome,
   selectSignOutError,
 } from '../../store/user/user.selector';
 
@@ -24,13 +25,22 @@ import {
   NavLinkButton,
   NavLinks,
 } from './navigation.styles';
+import { useEffect } from 'react';
 
 const Navigation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const error = useSelector(selectSignOutError);
+  const navigateToHome = useSelector(selectNavigateToHome);
   const errorMessage: string = error ? 'Failed to sign out current user.' : '';
+
+  useEffect(() => {
+    if (navigateToHome) {
+      navigate('/');
+    }
+  }, [navigateToHome, navigate]);
 
   const signOutUser = () => dispatch(signOutStart());
   const { pathname } = useLocation();
