@@ -9,8 +9,8 @@ import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { signOutStart } from '../../store/user/user.action';
 import {
   selectCurrentUser,
-  selectNavigateToHome,
   selectSignOutError,
+  selectSignOutSuccess,
 } from '../../store/user/user.selector';
 
 import CrownLogo from '../../assets/crown.svg';
@@ -33,14 +33,8 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const error = useSelector(selectSignOutError);
-  const navigateToHome = useSelector(selectNavigateToHome);
+  const isSignOutSuccess = useSelector(selectSignOutSuccess);
   const errorMessage: string = error ? 'Failed to sign out current user.' : '';
-
-  useEffect(() => {
-    if (navigateToHome) {
-      navigate('/');
-    }
-  }, [navigateToHome, navigate]);
 
   const signOutUser = () => dispatch(signOutStart());
   const { pathname } = useLocation();
@@ -52,6 +46,12 @@ const Navigation = () => {
   const isCurrentRoute = (item: { to: string }) => {
     return pathname.startsWith(item.to);
   };
+
+  useEffect(() => {
+    if (isSignOutSuccess) {
+      navigate('/', { replace: true });
+    }
+  }, [isSignOutSuccess, navigate]);
 
   return (
     <>

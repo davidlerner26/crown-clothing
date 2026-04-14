@@ -61,8 +61,6 @@ export type SignOutFailed = ActionWithPayload<
   Error
 >;
 
-export type NavigateToHome = Action<USER_ACTION_TYPES.NAVIGATE_TO_HOME>;
-
 export const checkUserSession = withMatcher(
   (): CheckUserSession => createAction(USER_ACTION_TYPES.CHECK_USER_SESSION),
 );
@@ -124,8 +122,4 @@ export const signOutSuccess = withMatcher(
 export const signOutFailed = withMatcher(
   (error: Error): SignOutFailed =>
     createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error),
-);
-
-export const navigateToHome = withMatcher(
-  (): NavigateToHome => createAction(USER_ACTION_TYPES.NAVIGATE_TO_HOME),
 );
