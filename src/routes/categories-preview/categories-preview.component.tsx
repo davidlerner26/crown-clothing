@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -14,7 +13,7 @@ const CategoriesPreview = () => {
   const isLoading = useSelector(selectCategoriesIsLoading);
 
   return (
-    <Fragment>
+    <>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -25,7 +24,7 @@ const CategoriesPreview = () => {
           );
         })
       )}
-    </Fragment>
+    </>
   );
 };
 

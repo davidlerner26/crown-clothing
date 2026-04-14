@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { Outlet } from 'react-router-dom';
@@ -45,7 +44,7 @@ const Navigation = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <NavigationContainer>
         <LogoContainer to="/">
           <img src={CrownLogo} alt="Crown logo" />
@@ -84,7 +83,7 @@ const Navigation = () => {
         </ClickOutside>
       )}
       <Outlet />
-    </Fragment>
+    </>
   );
 };
 
