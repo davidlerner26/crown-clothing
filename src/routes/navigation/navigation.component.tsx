@@ -51,7 +51,7 @@ const Navigation = () => {
     if (isSignOutSuccess) {
       navigate('/', { replace: true });
     }
-  }, [isSignOutSuccess, navigate]);
+  }, [isSignOutSuccess]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import type { FC, InputHTMLAttributes } from 'react';
+import { type FC, type InputHTMLAttributes } from 'react';
 
 import type { FieldError } from 'react-hook-form';
 import {
@@ -12,9 +12,15 @@ import {
 type FormInputProps = {
   label: string;
   error: FieldError | undefined;
+  currentValue: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
+const FormInput: FC<FormInputProps> = ({
+  label,
+  error,
+  currentValue,
+  ...otherProps
+}) => {
   const message = error?.message ?? '';
 
   return (
@@ -24,11 +30,7 @@ const FormInput: FC<FormInputProps> = ({ label, error, ...otherProps }) => {
         {label && (
           <FormInputLabel
             error={message}
-            shrink={Boolean(
-              otherProps.value &&
-              typeof otherProps.value === 'string' &&
-              otherProps.value.length,
-            )}
+            shrink={Boolean(currentValue?.length)}
           >
             {label}
           </FormInputLabel>

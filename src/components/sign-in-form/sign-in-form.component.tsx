@@ -58,6 +58,7 @@ const SignInForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -65,6 +66,8 @@ const SignInForm = () => {
       password: '',
     },
   });
+  const email = watch('email');
+  const password = watch('password');
 
   const onSubmit: SubmitHandler<Inputs> = async (data, event) => {
     event?.stopPropagation();
@@ -86,6 +89,7 @@ const SignInForm = () => {
           label="Email"
           type="email"
           error={errors.email}
+          currentValue={email}
         />
 
         <FormInput
@@ -96,6 +100,7 @@ const SignInForm = () => {
           type="password"
           name="password"
           error={errors.password}
+          currentValue={password}
         />
 
         <ButtonsContainer>

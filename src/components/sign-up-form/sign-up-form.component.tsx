@@ -43,6 +43,7 @@ const SignUpForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Inputs>({
     mode: 'onChange',
@@ -53,6 +54,10 @@ const SignUpForm = () => {
       confirmPassword: '',
     },
   });
+  const displayName = watch('displayName');
+  const email = watch('email');
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
 
   useEffect(() => {
     if (currentUser) {
@@ -85,6 +90,7 @@ const SignUpForm = () => {
           type="text"
           name="displayName"
           error={errors.displayName}
+          currentValue={displayName}
         />
 
         <FormInput
@@ -98,6 +104,7 @@ const SignUpForm = () => {
           label="Email"
           type="email"
           error={errors.email}
+          currentValue={email}
         />
 
         <FormInput
@@ -112,6 +119,7 @@ const SignUpForm = () => {
           type="password"
           name="password"
           error={errors.password}
+          currentValue={password}
         />
 
         <FormInput
@@ -124,6 +132,7 @@ const SignUpForm = () => {
           type="password"
           name="confirmPassword"
           error={errors.confirmPassword}
+          currentValue={confirmPassword}
         />
         <Button
           type="submit"
