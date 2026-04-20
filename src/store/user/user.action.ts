@@ -63,12 +63,12 @@ export type SignOutFailed = ActionWithPayload<
 
 export type SignInIsLoading = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_IN_IS_LOADING,
-  { signInIsLoading: boolean }
+  boolean
 >;
 
 export type SignUpIsLoading = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_UP_IS_LOADING,
-  { signUpIsLoading: boolean }
+  boolean
 >;
 
 export const checkUserSession = withMatcher(
@@ -136,10 +136,10 @@ export const signOutFailed = withMatcher(
 
 export const signInIsLoading = withMatcher(
   (signInIsLoading: boolean): SignInIsLoading =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_IS_LOADING, { signInIsLoading }),
+    createAction(USER_ACTION_TYPES.SIGN_IN_IS_LOADING, signInIsLoading),
 );
 
 export const signUpIsLoading = withMatcher(
   (signUpIsLoading: boolean): SignUpIsLoading =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_IS_LOADING, { signUpIsLoading }),
+    createAction(USER_ACTION_TYPES.SIGN_UP_IS_LOADING, signUpIsLoading),
 );
